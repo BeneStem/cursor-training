@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,80 +8,86 @@
 
 :root {
   --font-size: 16px;
-  --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
-  --card: #ffffff;
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #030213;
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
-  --muted: #ececf0;
-  --muted-foreground: #717182;
-  --accent: #e9ebef;
-  --accent-foreground: #030213;
-  --destructive: #d4183d;
+  
+  /* Retro Arcade Color Palette */
+  --arcade-black: #0f0f23;
+  --arcade-dark: #1a1a2e;
+  --arcade-mid: #16213e;
+  --arcade-pink: #ff2d95;
+  --arcade-cyan: #00fff5;
+  --arcade-yellow: #ffe66d;
+  --arcade-green: #39ff14;
+  --arcade-purple: #b537f2;
+  --arcade-orange: #ff6b35;
+  
+  /* Mapped to design system */
+  --background: var(--arcade-black);
+  --foreground: #e0e0ff;
+  --card: var(--arcade-dark);
+  --card-foreground: #e0e0ff;
+  --popover: var(--arcade-dark);
+  --popover-foreground: #e0e0ff;
+  --primary: var(--arcade-pink);
+  --primary-foreground: #ffffff;
+  --secondary: var(--arcade-mid);
+  --secondary-foreground: var(--arcade-cyan);
+  --muted: var(--arcade-dark);
+  --muted-foreground: #8888aa;
+  --accent: var(--arcade-cyan);
+  --accent-foreground: var(--arcade-black);
+  --destructive: #ff4757;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+  --border: rgba(0, 255, 245, 0.2);
   --input: transparent;
-  --input-background: #f3f3f5;
-  --switch-background: #cbced4;
+  --input-background: rgba(22, 33, 62, 0.8);
+  --switch-background: var(--arcade-mid);
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #030213;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --ring: var(--arcade-cyan);
+  --chart-1: var(--arcade-pink);
+  --chart-2: var(--arcade-cyan);
+  --chart-3: var(--arcade-yellow);
+  --chart-4: var(--arcade-green);
+  --chart-5: var(--arcade-purple);
+  --radius: 0.25rem;
+  --sidebar: var(--arcade-dark);
+  --sidebar-foreground: #e0e0ff;
+  --sidebar-primary: var(--arcade-pink);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--arcade-mid);
+  --sidebar-accent-foreground: var(--arcade-cyan);
+  --sidebar-border: rgba(0, 255, 245, 0.2);
+  --sidebar-ring: var(--arcade-cyan);
+  
+  /* Glow effects */
+  --glow-pink: 0 0 20px rgba(255, 45, 149, 0.5), 0 0 40px rgba(255, 45, 149, 0.3);
+  --glow-cyan: 0 0 20px rgba(0, 255, 245, 0.5), 0 0 40px rgba(0, 255, 245, 0.3);
+  --glow-yellow: 0 0 20px rgba(255, 230, 109, 0.5), 0 0 40px rgba(255, 230, 109, 0.3);
+  --glow-green: 0 0 20px rgba(57, 255, 20, 0.5), 0 0 40px rgba(57, 255, 20, 0.3);
+  --glow-purple: 0 0 20px rgba(181, 55, 242, 0.5), 0 0 40px rgba(181, 55, 242, 0.3);
 }
 
+/* Dark mode is now the default - keeping for compatibility */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --background: var(--arcade-black);
+  --foreground: #e0e0ff;
+  --card: var(--arcade-dark);
+  --card-foreground: #e0e0ff;
+  --popover: var(--arcade-dark);
+  --popover-foreground: #e0e0ff;
+  --primary: var(--arcade-pink);
+  --primary-foreground: #ffffff;
+  --secondary: var(--arcade-mid);
+  --secondary-foreground: var(--arcade-cyan);
+  --muted: var(--arcade-dark);
+  --muted-foreground: #8888aa;
+  --accent: var(--arcade-cyan);
+  --accent-foreground: var(--arcade-black);
+  --destructive: #ff4757;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 255, 245, 0.2);
+  --input: transparent;
+  --ring: var(--arcade-cyan);
 }
 
 @layer base {
@@ -87,13 +95,220 @@
     border-color: var(--border);
   }
 
+  html {
+    font-size: var(--font-size);
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-size: var(--font-size);
+    font-family: 'VT323', monospace;
+    letter-spacing: 0.02em;
+  }
+  
+  /* Pixel-style headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Press Start 2P', cursive;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+  
+  /* Smaller heading sizes for pixel font readability */
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1rem; }
+  h4 { font-size: 0.875rem; }
+  h5, h6 { font-size: 0.75rem; }
+}
+
+@layer components {
+  /* CRT Scanline overlay effect */
+  .crt-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    z-index: 9999;
+  }
+  
+  /* Grid background pattern */
+  .arcade-grid {
+    background-image: 
+      linear-gradient(rgba(0, 255, 245, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 245, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  
+  /* Neon glow utilities */
+  .glow-pink {
+    box-shadow: var(--glow-pink);
+  }
+  
+  .glow-cyan {
+    box-shadow: var(--glow-cyan);
+  }
+  
+  .glow-yellow {
+    box-shadow: var(--glow-yellow);
+  }
+  
+  .glow-green {
+    box-shadow: var(--glow-green);
+  }
+  
+  .glow-purple {
+    box-shadow: var(--glow-purple);
+  }
+  
+  /* Text glow effects */
+  .text-glow-pink {
+    text-shadow: 0 0 10px rgba(255, 45, 149, 0.8), 0 0 20px rgba(255, 45, 149, 0.5);
+  }
+  
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 255, 245, 0.8), 0 0 20px rgba(0, 255, 245, 0.5);
+  }
+  
+  .text-glow-yellow {
+    text-shadow: 0 0 10px rgba(255, 230, 109, 0.8), 0 0 20px rgba(255, 230, 109, 0.5);
+  }
+  
+  .text-glow-green {
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.5);
+  }
+  
+  /* Arcade button style */
+  .arcade-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    border: 2px solid;
+    transition: all 0.2s ease;
+  }
+  
+  .arcade-btn:hover {
+    transform: translateY(-2px);
+  }
+  
+  .arcade-btn:active {
+    transform: translateY(1px);
+  }
+  
+  /* Pixel border effect */
+  .pixel-border {
+    border: 3px solid;
+    border-image: 
+      linear-gradient(
+        45deg,
+        var(--arcade-pink) 0%,
+        var(--arcade-cyan) 50%,
+        var(--arcade-pink) 100%
+      ) 1;
+  }
+  
+  /* Retro card style */
+  .retro-card {
+    background: linear-gradient(
+      135deg,
+      var(--arcade-dark) 0%,
+      var(--arcade-mid) 100%
+    );
+    border: 1px solid rgba(0, 255, 245, 0.3);
+    position: relative;
+  }
+  
+  .retro-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 45, 149, 0.05) 0%,
+      transparent 50%,
+      rgba(0, 255, 245, 0.05) 100%
+    );
+    pointer-events: none;
+  }
+  
+  /* Animated loading spinner - arcade style */
+  .arcade-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--arcade-mid);
+    border-top-color: var(--arcade-cyan);
+    border-right-color: var(--arcade-pink);
+    border-radius: 50%;
+    animation: arcade-spin 1s linear infinite;
+  }
+  
+  @keyframes arcade-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Pulse animation for status indicators */
+  .arcade-pulse {
+    animation: arcade-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes arcade-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  /* Flicker effect for retro feel */
+  .arcade-flicker {
+    animation: flicker 0.15s infinite;
+  }
+  
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.97; }
   }
 }
 
-html {
-  font-size: var(--font-size);
+@layer utilities {
+  /* Font utilities */
+  .font-arcade {
+    font-family: 'Press Start 2P', cursive;
+  }
+  
+  .font-retro {
+    font-family: 'VT323', monospace;
+  }
+  
+  /* Color utilities for arcade palette */
+  .text-arcade-pink { color: var(--arcade-pink); }
+  .text-arcade-cyan { color: var(--arcade-cyan); }
+  .text-arcade-yellow { color: var(--arcade-yellow); }
+  .text-arcade-green { color: var(--arcade-green); }
+  .text-arcade-purple { color: var(--arcade-purple); }
+  .text-arcade-orange { color: var(--arcade-orange); }
+  
+  .bg-arcade-black { background-color: var(--arcade-black); }
+  .bg-arcade-dark { background-color: var(--arcade-dark); }
+  .bg-arcade-mid { background-color: var(--arcade-mid); }
+  .bg-arcade-pink { background-color: var(--arcade-pink); }
+  .bg-arcade-cyan { background-color: var(--arcade-cyan); }
+  .bg-arcade-yellow { background-color: var(--arcade-yellow); }
+  .bg-arcade-green { background-color: var(--arcade-green); }
+  .bg-arcade-purple { background-color: var(--arcade-purple); }
+  
+  .border-arcade-pink { border-color: var(--arcade-pink); }
+  .border-arcade-cyan { border-color: var(--arcade-cyan); }
+  .border-arcade-yellow { border-color: var(--arcade-yellow); }
+  .border-arcade-green { border-color: var(--arcade-green); }
+  .border-arcade-purple { border-color: var(--arcade-purple); }
 }

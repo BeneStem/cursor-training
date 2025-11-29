@@ -88,59 +88,89 @@ export function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="bg-blue-600 text-white p-3 rounded-lg">
-            <LifeBuoy className="h-8 w-8" />
+        {/* Arcade-style Logo */}
+        <div className="flex flex-col items-center justify-center gap-4 mb-10">
+          <div className="relative">
+            <div className="bg-arcade-pink p-4 rounded-lg glow-pink">
+              <LifeBuoy className="h-10 w-10 text-white" />
+            </div>
+            {/* Decorative pixel corners */}
+            <div className="absolute -top-1 -left-1 w-2 h-2 bg-arcade-cyan" />
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-arcade-cyan" />
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-arcade-cyan" />
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-arcade-cyan" />
           </div>
-          <div>
-            <h1 className="text-3xl text-gray-900">SupportFlow</h1>
-            <p className="text-sm text-gray-600">AI-Powered Support Tickets</p>
+          <div className="text-center">
+            <h1 className="text-arcade-pink text-glow-pink mb-2">SupportFlow</h1>
+            <p className="text-arcade-cyan font-retro text-xl tracking-wider">
+              AI-Powered Support Tickets
+            </p>
           </div>
         </div>
 
         <Tabs defaultValue="login" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 bg-arcade-dark border border-arcade-cyan/30 p-1">
+            <TabsTrigger 
+              value="login" 
+              className="font-arcade text-[10px] data-[state=active]:bg-arcade-pink data-[state=active]:text-white data-[state=active]:shadow-glow-pink-sm text-arcade-cyan transition-all"
+            >
+              Login
+            </TabsTrigger>
+            <TabsTrigger 
+              value="signup"
+              className="font-arcade text-[10px] data-[state=active]:bg-arcade-cyan data-[state=active]:text-arcade-black data-[state=active]:shadow-glow-cyan-sm text-arcade-pink transition-all"
+            >
+              Sign Up
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="login">
-            <Card>
+            <Card className="retro-card border-arcade-cyan/30 mt-4">
               <CardHeader>
-                <CardTitle>Welcome back</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-arcade-cyan text-sm">Welcome back</CardTitle>
+                <CardDescription className="text-muted-foreground font-retro text-lg">
                   Enter your credentials to access your account
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {error && (
-                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-sm text-red-800">
+                  <div className="mb-4 p-3 bg-destructive/20 border border-destructive/50 rounded text-sm text-destructive font-retro text-lg">
                     {error}
                   </div>
                 )}
-                <form onSubmit={handleLogin} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-5">
                   <div className="space-y-2">
-                    <Label htmlFor="login-email">Email</Label>
+                    <Label htmlFor="login-email" className="text-arcade-yellow font-arcade text-[10px]">
+                      Email
+                    </Label>
                     <Input
                       id="login-email"
                       name="email"
                       type="email"
                       placeholder="you@example.com"
                       required
+                      className="bg-arcade-mid/50 border-arcade-cyan/30 text-foreground font-retro text-xl placeholder:text-muted-foreground/50 focus:border-arcade-cyan focus:shadow-glow-cyan-sm transition-all"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="login-password">Password</Label>
+                    <Label htmlFor="login-password" className="text-arcade-yellow font-arcade text-[10px]">
+                      Password
+                    </Label>
                     <Input
                       id="login-password"
                       name="password"
                       type="password"
                       placeholder="••••••••"
                       required
+                      className="bg-arcade-mid/50 border-arcade-cyan/30 text-foreground font-retro text-xl placeholder:text-muted-foreground/50 focus:border-arcade-cyan focus:shadow-glow-cyan-sm transition-all"
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Logging in..." : "Login"}
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-arcade-pink hover:bg-arcade-pink/80 text-white font-arcade text-[10px] h-12 hover:shadow-glow-pink transition-all" 
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Loading..." : "Press Start"}
                   </Button>
                 </form>
               </CardContent>
@@ -148,52 +178,65 @@ export function LoginPage() {
           </TabsContent>
 
           <TabsContent value="signup">
-            <Card>
+            <Card className="retro-card border-arcade-pink/30 mt-4">
               <CardHeader>
-                <CardTitle>Create an account</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-arcade-pink text-sm">Create an account</CardTitle>
+                <CardDescription className="text-muted-foreground font-retro text-lg">
                   Enter your information to get started
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {error && (
-                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-sm text-red-800">
+                  <div className="mb-4 p-3 bg-destructive/20 border border-destructive/50 rounded text-sm text-destructive font-retro text-lg">
                     {error}
                   </div>
                 )}
-                <form onSubmit={handleSignup} className="space-y-4">
+                <form onSubmit={handleSignup} className="space-y-5">
                   <div className="space-y-2">
-                    <Label htmlFor="signup-name">Full Name</Label>
+                    <Label htmlFor="signup-name" className="text-arcade-yellow font-arcade text-[10px]">
+                      Full Name
+                    </Label>
                     <Input
                       id="signup-name"
                       name="name"
                       type="text"
-                      placeholder="John Doe"
+                      placeholder="Player One"
                       required
+                      className="bg-arcade-mid/50 border-arcade-pink/30 text-foreground font-retro text-xl placeholder:text-muted-foreground/50 focus:border-arcade-pink focus:shadow-glow-pink-sm transition-all"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
+                    <Label htmlFor="signup-email" className="text-arcade-yellow font-arcade text-[10px]">
+                      Email
+                    </Label>
                     <Input
                       id="signup-email"
                       name="email"
                       type="email"
                       placeholder="you@example.com"
                       required
+                      className="bg-arcade-mid/50 border-arcade-pink/30 text-foreground font-retro text-xl placeholder:text-muted-foreground/50 focus:border-arcade-pink focus:shadow-glow-pink-sm transition-all"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
+                    <Label htmlFor="signup-password" className="text-arcade-yellow font-arcade text-[10px]">
+                      Password
+                    </Label>
                     <Input
                       id="signup-password"
                       name="password"
                       type="password"
                       placeholder="••••••••"
                       required
+                      className="bg-arcade-mid/50 border-arcade-pink/30 text-foreground font-retro text-xl placeholder:text-muted-foreground/50 focus:border-arcade-pink focus:shadow-glow-pink-sm transition-all"
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Creating account..." : "Sign Up"}
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-arcade-cyan hover:bg-arcade-cyan/80 text-arcade-black font-arcade text-[10px] h-12 hover:shadow-glow-cyan transition-all" 
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Creating..." : "Insert Coin"}
                   </Button>
                 </form>
               </CardContent>
@@ -201,11 +244,10 @@ export function LoginPage() {
           </TabsContent>
         </Tabs>
 
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Powered by Supabase
+        <p className="text-center text-muted-foreground mt-6 font-retro text-lg">
+          <span className="text-arcade-purple">⚡</span> Powered by Supabase <span className="text-arcade-purple">⚡</span>
         </p>
       </div>
     </div>
   );
 }
-

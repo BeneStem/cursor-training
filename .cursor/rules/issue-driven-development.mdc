@@ -1,0 +1,74 @@
+---
+description: Enforce issue-driven development by requiring a GitHub issue before any implementation
+alwaysApply: true
+---
+
+# Issue-Driven Development Workflow
+
+## Overview
+
+This rule enforces an issue-driven development workflow for the SupportFlow project, ensuring all work is properly tracked and documented in GitHub issues.
+
+## Workflow
+
+### Before Making Any Code Changes
+
+1. **Check for Existing Issue**
+   - Search for relevant GitHub issues related to the task
+   - Use `gh issue list --search "keyword"` to find existing issues
+   - If a relevant issue exists, reference it in your work
+
+2. **Create Issue Before Implementation**
+   - If NO existing issue is found, you MUST create a GitHub issue first
+   - Draft the issue content with:
+     - Clear title describing the problem/feature
+     - Description of the current behavior (for bugs) or requirements (for features)
+     - Root cause analysis (if applicable)
+     - Proposed solution
+     - Affected files/components
+   - Present the drafted issue to the user for verification
+   - Wait for user approval before creating the issue
+
+3. **Issue Creation**
+   - Use `gh issue create` to create the issue via CLI
+   - Save the issue URL/number for reference
+   - Only proceed with implementation after the issue is created
+
+4. **Implementation**
+   - Reference the issue number in commits (e.g., "fixes #2" or "relates to #5")
+   - Update the issue with progress if needed
+
+### Exception Cases
+
+- **Documentation-only changes**: Can proceed without an issue if it's a minor typo or formatting fix
+- **User explicitly requests immediate fix**: If the user says "skip the issue" or "just fix it", you may proceed
+
+## GitHub CLI Commands to Use
+
+- Search issues: `gh issue list --search "search term"`
+- Create issue: `gh issue create --title "Title" --body "Body"`
+- View issue: `gh issue view <number>`
+- List open issues: `gh issue list --state open`
+
+## Commit Message Format
+
+Always reference the issue number in commits:
+- For fixes: `fix: description (fixes #issue_number)`
+- For features: `feat: description (closes #issue_number)`
+- For related work: `chore: description (relates to #issue_number)`
+
+## Planning Mode
+
+When in planning mode:
+1. Search for existing issues related to the task
+2. If none found, draft the issue and include it in your plan
+3. Set first todo as "Create GitHub issue: [title]"
+4. Add implementation todos after issue creation
+
+## Summary
+
+**Never start implementation without either:**
+- An existing GitHub issue that matches the task
+- Creating a new GitHub issue (with user approval of the draft)
+
+This ensures all work is properly tracked and documented for the team.

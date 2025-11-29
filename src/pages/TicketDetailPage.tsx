@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../co
 import { Separator } from "../components/ui/separator";
 import { getCurrentUser } from "../utils/auth";
 import { getTicketById, updateTicket, type Ticket, subscribeToTickets } from "../utils/tickets";
-import { ArrowLeft, Clock, CheckCircle, AlertCircle, Sparkles } from "lucide-react";
+import { ArrowLeft, Clock, CheckCircle, AlertCircle, Sparkles, Zap } from "lucide-react";
 import { toast } from "sonner";
 
 export function TicketDetailPage() {
@@ -116,10 +116,10 @@ export function TicketDetailPage() {
 
   if (!user || isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading ticket...</p>
+          <div className="arcade-spinner mx-auto mb-4"></div>
+          <p className="text-arcade-cyan font-retro text-xl">Loading ticket...</p>
         </div>
       </div>
     );
@@ -132,24 +132,52 @@ export function TicketDetailPage() {
     ticket.status === 'pending' ? Clock :
     CheckCircle;
 
-  const statusColor = 
-    ticket.status === 'open' ? 'text-orange-600' :
-    ticket.status === 'pending' ? 'text-blue-600' :
-    'text-green-600';
+  const statusConfig = {
+    open: {
+      color: 'text-arcade-orange',
+      bgColor: 'bg-arcade-orange/20',
+      borderColor: 'border-arcade-orange/50',
+      glowClass: '',
+    },
+    pending: {
+      color: 'text-arcade-cyan',
+      bgColor: 'bg-arcade-cyan/20',
+      borderColor: 'border-arcade-cyan/50',
+      glowClass: 'shadow-glow-cyan-sm',
+    },
+    resolved: {
+      color: 'text-arcade-green',
+      bgColor: 'bg-arcade-green/20',
+      borderColor: 'border-arcade-green/50',
+      glowClass: 'shadow-glow-green',
+    },
+  };
+
+  const config = statusConfig[ticket.status as keyof typeof statusConfig] || statusConfig.open;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200">
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="bg-arcade-dark/80 backdrop-blur-sm border-b border-arcade-cyan/20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link to="/dashboard">
-              <Button variant="ghost" size="sm">
+              <Button 
+                variant="ghost" 
+                size="sm"
+                className="text-arcade-cyan hover:text-arcade-pink hover:bg-arcade-pink/10 font-arcade text-[9px] transition-all"
+              >
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Button>
             </Link>
             {ticket.status !== 'resolved' && ticket.ai_response && (
-              <Button onClick={handleResolve} variant="outline" size="sm">
+              <Button 
+                onClick={handleResolve} 
+                variant="outline" 
+                size="sm"
+                className="border-arcade-green/50 text-arcade-green hover:bg-arcade-green/20 hover:border-arcade-green font-arcade text-[9px] transition-all hover:shadow-glow-green"
+              >
                 <CheckCircle className="h-4 w-4 mr-2" />
                 Mark as Resolved
               </Button>
@@ -159,22 +187,17 @@ export function TicketDetailPage() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Ticket Header */}
         <div className="flex items-start justify-between mb-6">
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-center gap-3 mb-3">
               <Badge
-                variant={
-                  ticket.status === 'open'
-                    ? 'secondary'
-                    : ticket.status === 'pending'
-                    ? 'default'
-                    : 'outline'
-                }
+                className={`font-arcade text-[8px] ${config.bgColor} ${config.color} ${config.borderColor} ${config.glowClass}`}
               >
-                <StatusIcon className={`h-3 w-3 mr-1 ${statusColor}`} />
+                <StatusIcon className={`h-3 w-3 mr-1 ${config.color}`} />
                 {ticket.status}
               </Badge>
-              <span className="text-sm text-gray-600">
+              <span className="text-muted-foreground font-retro text-lg">
                 Created {new Date(ticket.created_at).toLocaleDateString('en-US', {
                   month: 'long',
                   day: 'numeric',
@@ -184,76 +207,108 @@ export function TicketDetailPage() {
                 })}
               </span>
             </div>
-            <h2 className="text-3xl text-gray-900 mb-2">{ticket.title}</h2>
-            <p className="text-gray-600">Ticket #{ticket.id}</p>
+            <h2 className="text-arcade-pink text-glow-pink mb-2">{ticket.title}</h2>
+            <p className="text-muted-foreground font-retro text-lg">
+              Ticket #{ticket.id.slice(0, 8)}...
+            </p>
           </div>
         </div>
 
         <div className="space-y-6">
-          <Card>
+          {/* Original Request Card */}
+          <Card className="retro-card border-arcade-cyan/30">
             <CardHeader>
-              <CardTitle>Your Request</CardTitle>
-              <CardDescription>Original support ticket details</CardDescription>
+              <CardTitle className="text-arcade-cyan font-arcade text-xs">Your Request</CardTitle>
+              <CardDescription className="text-muted-foreground font-retro text-lg">
+                Original support ticket details
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-700 whitespace-pre-wrap">
+              <p className="text-foreground font-retro text-xl whitespace-pre-wrap leading-relaxed">
                 {ticket.description}
               </p>
             </CardContent>
           </Card>
 
+          {/* AI Response Card */}
           {ticket.ai_response ? (
-            <Card className="border-blue-200 bg-blue-50/50">
-              <CardHeader>
+            <Card className="retro-card border-arcade-purple/50 relative overflow-hidden">
+              {/* Achievement-style glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-arcade-purple/10 via-transparent to-arcade-pink/10 pointer-events-none" />
+              
+              <CardHeader className="relative">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-5 w-5 text-blue-600" />
-                  <CardTitle className="text-blue-900">AI-Generated Response</CardTitle>
+                  <div className="p-2 bg-arcade-purple/20 rounded glow-purple">
+                    <Sparkles className="h-5 w-5 text-arcade-purple" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-arcade-purple font-arcade text-xs">AI-Generated Response</CardTitle>
+                    <CardDescription className="text-arcade-pink font-retro text-lg">
+                      Powered by OpenAI Function Calling
+                    </CardDescription>
+                  </div>
                 </div>
-                <CardDescription className="text-blue-800">
-                  Powered by OpenAI Function Calling
-                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="bg-white rounded-lg p-6 border border-blue-200">
-                  <p className="text-gray-700 whitespace-pre-wrap">
+              <CardContent className="relative">
+                <div className="bg-arcade-dark/50 rounded-lg p-6 border border-arcade-purple/30">
+                  <p className="text-foreground font-retro text-xl whitespace-pre-wrap leading-relaxed">
                     {ticket.ai_response}
                   </p>
                 </div>
                 
-                <Separator className="my-6" />
+                <Separator className="my-6 bg-arcade-purple/30" />
                 
                 <div className="space-y-3">
-                  <p className="text-sm text-gray-700">Was this response helpful?</p>
+                  <p className="text-muted-foreground font-retro text-lg">Was this response helpful?</p>
                   <div className="flex gap-3">
-                    <Button variant="outline" size="sm">
-                      👍 Yes, this helped
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="border-arcade-green/50 text-arcade-green hover:bg-arcade-green/20 hover:border-arcade-green font-arcade text-[9px] transition-all"
+                    >
+                      <span className="mr-2">👍</span> Yes, this helped
                     </Button>
-                    <Button variant="outline" size="sm">
-                      👎 No, I need more help
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="border-arcade-orange/50 text-arcade-orange hover:bg-arcade-orange/20 hover:border-arcade-orange font-arcade text-[9px] transition-all"
+                    >
+                      <span className="mr-2">👎</span> No, I need more help
                     </Button>
                   </div>
                 </div>
               </CardContent>
             </Card>
           ) : (
-            <Card>
+            <Card className="retro-card border-arcade-cyan/30">
               <CardContent className="py-12">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                  <h3 className="text-gray-900 mb-2">Generating AI Response...</h3>
-                  <p className="text-gray-600">
+                  <div className="relative inline-block mb-4">
+                    <div className="arcade-spinner"></div>
+                    <Zap className="h-5 w-5 text-arcade-yellow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                  </div>
+                  <h3 className="text-arcade-cyan font-arcade text-xs mb-3">Generating AI Response...</h3>
+                  <p className="text-muted-foreground font-retro text-xl max-w-md mx-auto">
                     Our AI is analyzing your ticket and preparing a detailed response.
                     This usually takes a few seconds.
                   </p>
+                  <div className="mt-4 flex justify-center gap-1">
+                    <span className="w-2 h-2 bg-arcade-pink rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-2 h-2 bg-arcade-cyan rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-2 h-2 bg-arcade-yellow rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </div>
                 </div>
               </CardContent>
             </Card>
           )}
         </div>
 
-        <div className="mt-8 bg-gray-100 rounded-lg p-4">
-          <h4 className="text-sm text-gray-900 mb-2">ℹ️ About AI Responses</h4>
-          <p className="text-sm text-gray-700">
+        {/* Info Section */}
+        <div className="mt-8 bg-arcade-dark/50 border border-arcade-cyan/20 rounded-lg p-4">
+          <h4 className="text-arcade-cyan font-arcade text-[10px] mb-3 flex items-center gap-2">
+            <span className="text-lg">ℹ️</span> About AI Responses
+          </h4>
+          <p className="text-muted-foreground font-retro text-lg">
             Our AI uses advanced natural language processing to understand your issue
             and provide relevant solutions. In a production environment, this would be
             powered by OpenAI's GPT models with function calling capabilities to access
@@ -264,4 +319,3 @@ export function TicketDetailPage() {
     </div>
   );
 }
-
